@@ -1,26 +1,33 @@
 package main
 
 import (
-	"context"
-	"errors"
-	"log/slog"
-	"net/http"
-	"os"
-	"os/signal"
-	"syscall"
-	"time"
+    "context"
+    "errors"
+    "log/slog"
+    "net/http"
+    "os"
+    "os/signal"
+    "syscall"
+    "time"
 
-	"github.com/AnamelYilma/Habsha-Kamis_E-commerce_Platform/backend/internal/config"
-	"github.com/AnamelYilma/Habsha-Kamis_E-commerce_Platform/backend/internal/database"
-	"github.com/AnamelYilma/Habsha-Kamis_E-commerce_Platform/backend/internal/server"
+    "github.com/joho/godotenv" // 1. Add this import
+    "github.com/AnamelYilma/Habsha-Kamis_E-commerce_Platform/backend/internal/config"
+    "github.com/AnamelYilma/Habsha-Kamis_E-commerce_Platform/backend/internal/database"
+    "github.com/AnamelYilma/Habsha-Kamis_E-commerce_Platform/backend/internal/server"
 )
 
 func main() {
-	cfg, err := config.Load()
-	if err != nil {
-		slog.Error("loading config", "error", err)
-		os.Exit(1)
-	}
+    // 2. Add this block to read your .env file
+    if err := godotenv.Load(); err != nil {
+        slog.Warn("No .env file found, using system environment variables")
+    }
+
+    cfg, err := config.Load()
+    if err != nil {
+        slog.Error("loading config", "error", err)
+        os.Exit(1)
+    }
+    
 
 	logger := slog.New(
 		slog.NewJSONHandler(
