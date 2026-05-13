@@ -63,5 +63,5 @@ func (s *Server) Routes() http.Handler {
 		s.withAdmin(http.HandlerFunc(s.getAdminDashboardSummary)),
 	)
 
-	return s.cors(s.requestLogger(mux))
+	return s.securityHeaders(s.cors(s.requestLogger(mux)))
 }

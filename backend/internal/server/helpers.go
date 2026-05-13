@@ -110,3 +110,48 @@ func newTrackingCode() (string, error) {
 
 	return "HK-" + strings.ToUpper(hex.EncodeToString(randomBytes)), nil
 }
+
+// validateFilePath ensures the filename doesn't contain path traversal attempts
+func validateFilePath(fileName string) error {
+	if fileName == "" {
+		return fmt.Errorf("filename cannot be empty")
+	}
+
+	// Check for null bytes (null injection)
+	if strings.Contains(fileName, "\x00") {
+		return fmt.Errorf("filename contains null bytes")
+	}
+
+	// Check for path traversal patterns
+	if strings.Contains(fileName, "..") {
+		return fmt.Errorf("filename contains path traversal attempt")
+	}
+
+	// Check for absolute paths
+	if filepath.IsAbs(fileName) {
+		return fmt.Errorf("filename cannot be an absolute path")
+	}
+
+	// Check for directory separators
+	if strings.Contains(fileName, string(filepath.Separator)) || strings.Contains(fileName, "/") {
+		return fmt.Errorf("filename cannot contain path separators")
+	}
+
+	return nil
+}
+
+// isPathWithin checks if targetPath is within basePath to prevent path traversal
+func isPathWithin(targetPath, basePath string) bool {
+	// Ensure both paths are absolute and cleaned
+	rel, err := filepath.Rel(basePath, targetPath)
+	if err != nil {
+		return false
+	}
+
+	// If the relative path starts with .., it's outside the base directory
+	if strings.HasPrefix(rel, "..") {
+		return false
+	}
+
+	return true
+}
