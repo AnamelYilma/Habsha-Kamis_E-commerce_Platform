@@ -42,28 +42,27 @@ func (s *Server) securityHeaders(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Prevent MIME type sniffing
 		w.Header().Set("X-Content-Type-Options", "nosniff")
-		
+
 		// Prevent clickjacking attacks
 		w.Header().Set("X-Frame-Options", "DENY")
-		
+
 		// Enable XSS protection
 		w.Header().Set("X-XSS-Protection", "1; mode=block")
-		
+
 		// Referrer policy
 		w.Header().Set("Referrer-Policy", "strict-origin-when-cross-origin")
-		
+
 		// Content Security Policy
 		w.Header().Set("Content-Security-Policy", "default-src 'self'")
-		
+
 		// HSTS (enabled only in production)
 		if s.cfg.AppEnv == "production" {
 			w.Header().Set("Strict-Transport-Security", "max-age=31536000; includeSubDomains")
 		}
-		
+
 		next.ServeHTTP(w, r)
 	})
 }
-
 
 func (s *Server) cors(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -122,12 +121,12 @@ func (s *Server) allowedOrigin(origin string) (string, bool) {
 		// Security: Don't allow wildcard CORS in production
 		if allowed == "*" {
 			if s.cfg.AppEnv != "development" {
-				s.logger.Warn("wildcard cors origin not allowed in production", 
+				s.logger.Warn("wildcard cors origin not allowed in production",
 					slog.String("origin", origin),
 					slog.String("env", s.cfg.AppEnv))
 				continue
 			}
-			s.logger.Warn("wildcard cors origin used - only for development", 
+			s.logger.Warn("wildcard cors origin used - only for development",
 				slog.String("origin", origin))
 			return "*", true
 		}

@@ -90,15 +90,15 @@ func (s *Server) uploadDesign(w http.ResponseWriter, r *http.Request) {
 
 	// Validate path to prevent path traversal attacks
 	if err := validateFilePath(fileName); err != nil {
-		s.logger.Error("invalid file path detected", 
-			"file_name", fileName, 
+		s.logger.Error("invalid file path detected",
+			"file_name", fileName,
 			"error", err)
 		writeError(w, http.StatusBadRequest, "invalid file path", err)
 		return
 	}
 
 	relativePath := filepath.Join("designs", fileName)
-	
+
 	// Additional path traversal check on the final path
 	absPath := filepath.Join(s.uploadDir, relativePath)
 	absPath, err = filepath.Abs(absPath)
@@ -117,7 +117,7 @@ func (s *Server) uploadDesign(w http.ResponseWriter, r *http.Request) {
 
 	// Ensure the file is within the upload directory
 	if !isPathWithin(absPath, uploadDirAbs) {
-		s.logger.Warn("path traversal attempt detected", 
+		s.logger.Warn("path traversal attempt detected",
 			"attempted_path", absPath,
 			"upload_dir", uploadDirAbs)
 		writeError(w, http.StatusBadRequest, "invalid file path", nil)
