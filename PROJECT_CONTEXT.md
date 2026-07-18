@@ -13,19 +13,8 @@ Folder is empty. Starting fresh. Only `.git` exists.
 - **Hosting**: Cloudflare Pages + Workers
 - **Database**: Cloudflare D1 (SQLite)
 - **Storage**: Cloudflare R2 (images)
-- **Auth**: Clerk (admin login)
+- **Auth**: Clerk (admin login) Not dicisd or not know user(develoer want this real mena)
 
 ## WHY CLOUDFLARE
-Commercial use allowed. No credit card needed. Unlimited bandwidth. Always awake. Real company.
+Commercial use allowed. No credit card needed. Unlimited bandwidth. Always awake. Real company.and Main reason No Bugdet for this project
 
-## DATABASE TABLES
-1. **users** — customer info
-2. **orders** — tracking code, status, notes
-3. **measurements** — body measurements
-4. **designs** — gallery images
-
-## ORDER STATUSES
-received → accepted → calling_customer → in_production → ready_for_delivery → delivered → rejected
-
-## CONSTRAINTS
-$0/month, no credit card, commercial use required, must be reliable.
