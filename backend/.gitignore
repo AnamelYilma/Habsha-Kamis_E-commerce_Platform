@@ -1,6 +1,0 @@
-.env
-bin/
-uploads/
-*.exe
-*.test
-coverage.out
