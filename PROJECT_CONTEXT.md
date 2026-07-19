@@ -1,7 +1,7 @@
 # PROJECT CONTEXT — Habsha Kamiss Tailoring Shop
 
 ## What This Is
-Real business website for father's Ethiopian traditional dress (Kamiss) tailoring shop. Actual customers, actual orders.
+Real business website for father's Ethiopian traditional dress (Habesha Kamiss) tailoring shop. Customers request custom dresses — not buy directly.
 
 ## Current Status
 Folder is empty. Starting fresh. Only `.git` exists.
@@ -14,18 +14,56 @@ Folder is empty. Starting fresh. Only `.git` exists.
 - **Database**: Cloudflare D1 (SQLite)
 - **Storage**: Cloudflare R2 (images)
 - **Auth**: Clerk (admin login)
+- **Communication**: Telegram Bot API (orders + price requests)
 
 ## WHY CLOUDFLARE
 Commercial use allowed. No credit card needed. Unlimited bandwidth. Always awake. Real company.
 
 ## DATABASE TABLES
 1. **users** — customer name, phone, email, address
-2. **orders** — tracking code, status, notes, user_id
+2. **orders** — tracking code, status, notes, user_id, telegram_message_id
 3. **measurements** — stomach, shoulder, leg, hand widths
-4. **designs** — gallery images (name, image_url, description)
+4. **designs** — gallery images (name, image_url, description, category, price_range)
 
 ## ORDER STATUSES
 received → accepted → calling_customer → in_production → ready_for_delivery → delivered → rejected
+
+---
+
+## DESIGN REQUIREMENTS
+- Ultra-clean, smart, easy-to-use interface
+- Luxury aesthetic with Ethiopian colors (green, yellow, red) or gold style
+- Professional layout for showcasing to clients
+
+## PAGES & FEATURES
+
+### Gallery Page
+- Categories: family, couples, Muslim, Christian, men, women, kids
+- Click item → opens full image
+- Scroll through multiple images per item
+
+### Admin Page
+- Dashboard to upload designs, images, set price ranges
+- View all orders with customer measurements
+- Update order status
+
+### Pricing Display
+- Next to each design image: shows price range (or "Unknown" if not set by admin)
+- **"Current Price" button** next to price range → 3 options:
+  1. Send request to Telegram bot (delayed response)
+  2. Open Telegram chat (direct ask)
+  3. Show phone number (direct call)
+
+### "Order" Button (Next to Image)
+- 3 options:
+  1. **Insert**: Submit measurements (waist, shoulder, arm, height) + phone number → sends to Telegram bot
+  2. **In-person**: Shows Google Maps location + phone number
+  3. **Send Clothes**: Shows location + phone for sending own clothes to shop
+
+### Communication
+- No chat on website
+- Telegram Bot handles all order submissions and price inquiries
+- Users redirected to Telegram for real conversations
 
 ---
 
@@ -39,6 +77,7 @@ received → accepted → calling_customer → in_production → ready_for_deliv
 - Clerk (`@clerk/nextjs`) for auth
 - `NEXT_PUBLIC_` env var prefix for client-side config
 - Route handlers in `app/api/.../route.ts`
+- Telegram Bot API for order/price communication
 
 ### ❌ DON'T USE
 - PostgreSQL/MySQL drivers (D1 is SQLite)
@@ -52,6 +91,7 @@ received → accepted → calling_customer → in_production → ready_for_deliv
 - Custom server in `next.config.js`
 - `process.env` or Node APIs in middleware
 - Local image imports (use R2 URLs)
+- Website chat widget (use Telegram instead)
 
 ---
 
