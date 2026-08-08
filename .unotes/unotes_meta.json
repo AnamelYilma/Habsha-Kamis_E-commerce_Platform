@@ -1,0 +1,35 @@
+{
+  "name": "",
+  "isOrdered": true,
+  "folders": {
+    "app": {
+      "name": "app",
+      "isOrdered": true,
+      "folders": {},
+      "files": {}
+    },
+    "components": {
+      "name": "components",
+      "isOrdered": true,
+      "folders": {},
+      "files": {}
+    },
+    "i18n": {
+      "name": "i18n",
+      "isOrdered": true,
+      "folders": {},
+      "files": {}
+    },
+    "mem-log": {
+      "name": "mem-log",
+      "isOrdered": true,
+      "folders": {},
+      "files": {}
+    }
+  },
+  "files": {
+    "PROJECT_CONTEXT": 0,
+    "PAGE_STRUCTURE": 1,
+    "userguidedand need": 2
+  }
+}
