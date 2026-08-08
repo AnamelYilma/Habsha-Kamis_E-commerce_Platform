@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    background-color: #868301; /* Sleek luxury dark mode */
+    color: #f3f4f6;
+    font-family: system-ui, sans-serif;
+}
+a {
+    text-decoration: none;
+}
+h1{
+    color: black;
+}
