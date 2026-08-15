@@ -1,0 +1,37 @@
+[
+  {
+    "id": "act-1",
+    "eventType": "order_created",
+    "title": "New Bespoke Order Logged",
+    "detail": "Customer Bethlehem Tadesse submitted measurements for Royal Empress Bridal Set (#HK-849201)",
+    "timestamp": "2026-08-15T14:30:00.000Z"
+  },
+  {
+    "id": "act-2",
+    "eventType": "cloth_inquiry",
+    "title": "Cloth Inquiry Received",
+    "detail": "Rahel Mekonnen inquired about Royal Empress Bridal Set with custom emerald thread",
+    "timestamp": "2026-08-15T10:15:00.000Z"
+  },
+  {
+    "id": "act-3",
+    "eventType": "gallery_view",
+    "title": "Gallery Category Browsed",
+    "detail": "Visitor browsed Wedding & Bridal collection (18 designs viewed)",
+    "timestamp": "2026-08-15T09:42:00.000Z"
+  },
+  {
+    "id": "act-4",
+    "eventType": "customize_started",
+    "title": "Bespoke Studio Session",
+    "detail": "Visitor calculated measurements for Groom Kaftan & Gabi",
+    "timestamp": "2026-08-14T18:20:00.000Z"
+  },
+  {
+    "id": "act-5",
+    "eventType": "contact_sent",
+    "title": "Contact Message Sent",
+    "detail": "Dawit Girma requested information for Enkutatash holiday family set",
+    "timestamp": "2026-08-14T16:40:00.000Z"
+  }
+]

@@ -1,0 +1,46 @@
+[
+  {
+    "id": "ord-101",
+    "trackingCode": "HK-849201",
+    "customerName": "Bethlehem Tadesse",
+    "phone": "0911234567",
+    "occasion": "Wedding Reception",
+    "garmentType": "Royal Empress Bridal Set",
+    "fabric": "100% Fine Ethiopian Menen Cotton",
+    "embroidery": "Royal Gold Zari Tilf",
+    "measurements": {
+      "height": "168",
+      "shoulder": "39",
+      "chest": "88",
+      "waist": "70",
+      "hip": "94",
+      "sleeve": "58",
+      "dressLength": "145"
+    },
+    "notes": "Please add a double layer Netela with matching gold trim for the church entrance.",
+    "status": "in_production",
+    "createdAt": "2026-08-10T14:30:00.000Z"
+  },
+  {
+    "id": "ord-102",
+    "trackingCode": "HK-629143",
+    "customerName": "Yohannes Haile",
+    "phone": "0922887766",
+    "occasion": "Enkutatash Family Holiday",
+    "garmentType": "Men's Kaftan & Matching Gabi",
+    "fabric": "Heavyweight Chencha Cotton",
+    "embroidery": "Festive Tricolor Unity Bands",
+    "measurements": {
+      "height": "180",
+      "shoulder": "46",
+      "chest": "102",
+      "waist": "88",
+      "hip": "100",
+      "sleeve": "64",
+      "dressLength": "105"
+    },
+    "notes": "Deliver before September 5th for New Year holiday.",
+    "status": "accepted",
+    "createdAt": "2026-08-12T09:15:00.000Z"
+  }
+]

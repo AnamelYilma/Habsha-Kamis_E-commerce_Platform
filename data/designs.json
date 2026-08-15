@@ -1,0 +1,104 @@
+[
+  {
+    "id": "wd-1",
+    "name": "Royal Empress Bridal Set",
+    "amharicName": "ክብረ-ንግሥት የሙሽራ አልባሳት",
+    "category": "wedding",
+    "priceRange": "35,000 - 55,000 ETB",
+    "description": "Our signature bridal masterpiece. Hand-woven from fine Menen cotton, featuring triple-layered gold Tilf embroidery, encrusted with gold beads, and a sweeping royalty veil.",
+    "images": [
+      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=80"
+    ],
+    "specs": {
+      "material": "100% Fine Ethiopian Menen Cotton",
+      "weaveTime": "120 Hours",
+      "production": "3-4 Weeks"
+    },
+    "createdAt": "2026-08-01T10:00:00.000Z"
+  },
+  {
+    "id": "wd-2",
+    "name": "Axumite Golden Crown Gown",
+    "amharicName": "የአክሱም ወርቃማ አክሊል ቀሚስ",
+    "category": "wedding",
+    "priceRange": "30,000 - 45,000 ETB",
+    "description": "Displays thick geometric dark gold embroidery on pure white organic thread, styled for a modern luxury look.",
+    "images": [
+      "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=800&q=80"
+    ],
+    "specs": {
+      "material": "Bespoke Spun Cotton & Silk Threads",
+      "weaveTime": "95 Hours",
+      "production": "3 Weeks"
+    },
+    "createdAt": "2026-08-02T11:00:00.000Z"
+  },
+  {
+    "id": "fam-1",
+    "name": "Trinity Holiday Family Set",
+    "amharicName": "የሥላሴ በዓላት የቤተሰብ አልባሳት",
+    "category": "family",
+    "priceRange": "25,000 - 42,000 ETB",
+    "description": "Designed for parents and children with matching green, yellow, and red silk borders over pristine white cotton.",
+    "images": [
+      "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=800&q=80"
+    ],
+    "specs": {
+      "material": "Soft Organic Weft Cotton",
+      "weaveTime": "110 Hours",
+      "production": "3 Weeks"
+    },
+    "createdAt": "2026-08-03T12:00:00.000Z"
+  },
+  {
+    "id": "cpl-1",
+    "name": "Axum & Lalibela Majestic Set",
+    "amharicName": "አክሱም እና ላሊበላ የጥንዶች አልባሳት",
+    "category": "couple",
+    "priceRange": "24,000 - 36,000 ETB",
+    "description": "Stunning bridal coordination. Woman's dress is tapered with gold thread detailing, matched with groom's Kaftan vest.",
+    "images": [
+      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80"
+    ],
+    "specs": {
+      "material": "Premium Menen Cotton & Gold Lurex",
+      "weaveTime": "90 Hours",
+      "production": "2-3 Weeks"
+    },
+    "createdAt": "2026-08-04T13:00:00.000Z"
+  },
+  {
+    "id": "fem-c1",
+    "name": "Golden Hibiscus Evening Kemis",
+    "amharicName": "የወርቅ አበባ ምሽት ቀሚስ",
+    "category": "female",
+    "priceRange": "14,000 - 20,000 ETB",
+    "description": "Flowing georgette layered skirt with a structured hand-woven cotton bodice, embroidered with golden floral motifs.",
+    "images": [
+      "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=800&q=80"
+    ],
+    "specs": {
+      "material": "Menen Cotton, Silk & Georgette",
+      "weaveTime": "60 Hours",
+      "production": "10-12 Days"
+    },
+    "createdAt": "2026-08-05T14:00:00.000Z"
+  },
+  {
+    "id": "mal-1",
+    "name": "Imperial Chencha Gabi & Vest",
+    "amharicName": "የጨንቻ ባህላዊ ጋቢና ሹራብ",
+    "category": "male",
+    "priceRange": "10,000 - 15,000 ETB",
+    "description": "Extra heavy, warm Gabi wrap woven in Chencha, paired with a matching embroidered cotton vest.",
+    "images": [
+      "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80"
+    ],
+    "specs": {
+      "material": "100% Chencha Spun Heavy Cotton",
+      "weaveTime": "80 Hours",
+      "production": "12-14 Days"
+    },
+    "createdAt": "2026-08-06T15:00:00.000Z"
+  }
+]

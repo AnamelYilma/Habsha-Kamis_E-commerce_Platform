@@ -1,0 +1,35 @@
+[
+  {
+    "id": "msg-101",
+    "type": "cloth_inquiry",
+    "customerName": "Rahel Mekonnen",
+    "phone": "0911765432",
+    "subject": "Royal Empress Bridal Set",
+    "message": "Hi, I saw the Royal Empress Bridal Gown in your gallery. Can you do this in ivory with emerald green thread accents for an October wedding?",
+    "action": "Price & Customization Inquiry",
+    "status": "unread",
+    "createdAt": "2026-08-15T10:15:00.000Z"
+  },
+  {
+    "id": "msg-102",
+    "type": "contact_message",
+    "customerName": "Dawit Girma",
+    "phone": "0922446688",
+    "subject": "Family Set for Enkutatash",
+    "message": "Looking for matching family set for 2 adults and 2 children (ages 4 and 7). Do you have size slots available before the holiday?",
+    "action": "Holiday Booking Request",
+    "status": "read",
+    "createdAt": "2026-08-14T16:40:00.000Z"
+  },
+  {
+    "id": "msg-103",
+    "type": "cloth_inquiry",
+    "customerName": "Semira Ahmed",
+    "phone": "0933998877",
+    "subject": "Modest Flow & Kaftan Elegance",
+    "message": "Is it possible to order the Modest High-Neck dress with full-length inner lining for overseas delivery to London?",
+    "action": "Diaspora Shipping Inquiry",
+    "status": "replied",
+    "createdAt": "2026-08-13T11:20:00.000Z"
+  }
+]
