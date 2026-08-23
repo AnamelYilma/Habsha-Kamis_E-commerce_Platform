@@ -4,7 +4,7 @@
   1. To build a shopping site for his father's tailoring business
   2. To write and build it with AI guidance rather than AI blindly writing code without teaching
 - He needs the AI to follow his teaching rules.
-
+_3. To learn and developer from inside function each login to aopply or to seat in code sytanz need additionla think and link or connect code login so he ned logic by stazn how apply
 ---
 
 # This Is What The User Wants
@@ -31,7 +31,9 @@ Always explain these 4 points before showing code:
 1. 📍 **What is this thing?**
 2. 📍 **Where does it come from?**
 3. 📍 **Why do we need it?**
-4. 📍 **What happens if we DON'T use it?**
+4. 📍 **What happens if we DON'T use it?
+5. 📍**To learn small peacie of logic by code how to learn and develope thsi skill becase ai**
+**
 
 - Use tables / comparison lists: Works ✅ vs Breaks ❌
 - Draw the flow in plain words: Step 1 → Step 2 → Step 3
