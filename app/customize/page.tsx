@@ -192,6 +192,23 @@ export default function CustomizePage() {
     setIsSubmitting(true);
 
     try {
+      // 1. Send Order notification to Telegram Bot
+      await fetch("/api/telegram", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "order",
+          customer: {
+            fullName: customer.name || "Customer",
+            phone: customer.phone,
+            notes: `[Delivery: ${customer.deliveryType}] [Needed By: ${customer.neededByDate || "N/A"}] ${customer.notes}`,
+          },
+          designName: `${activeGarmentObj.name} (${activeGarmentObj.amharic}) - ${activeFabricObj.name}`,
+          measurements: measurements,
+        }),
+      });
+
+      // 2. Save Order to Admin DB
       const response = await fetch("/api/admin/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -212,12 +229,13 @@ export default function CustomizePage() {
       const data = await response.json();
       setIsSubmitting(false);
 
-      if (data.success) {
+      if (data.success && data.order?.trackingCode) {
         setOrderResult({ success: true, trackingCode: data.order.trackingCode });
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else {
         const fallbackCode = `HK-${Math.floor(100000 + Math.random() * 900000)}`;
         setOrderResult({ success: true, trackingCode: fallbackCode });
+        window.scrollTo({ top: 0, behavior: "smooth" });
       }
     } catch {
       const fallbackCode = `HK-${Math.floor(100000 + Math.random() * 900000)}`;
