@@ -1,0 +1,33 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "opencode/x-preview-f-free",
+  "agent": {
+    "build": {
+      "model": "opencode/x-preview-f-free",
+      "variant": "max"
+    },
+    "plan": {
+      "model": "opencode/x-preview-f-free",
+      "variant": "max"
+    }
+  },
+  "provider": {
+    "opencode": {
+      "models": {
+        "x-preview-f-free": {
+          "variants": {
+            "low": {
+              "reasoningEffort": "low"
+            },
+            "high": {
+              "reasoningEffort": "high"
+            },
+            "max": {
+              "reasoningEffort": "max"
+            }
+          }
+        }
+      }
+    }
+  }
+}

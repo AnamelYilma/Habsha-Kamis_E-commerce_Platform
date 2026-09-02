@@ -9,11 +9,11 @@ Folder is empty. Starting fresh. Only `.git` exists.
 ---
 
 ## CHOSEN STACK
-- **Framework**: Next.js 15 (App Router)
+- **Framework**: Next.js 15 to lates (16) (App Router)
 - **Hosting**: Cloudflare Pages + Workers
 - **Database**: Cloudflare D1 (SQLite)
 - **Storage**: Cloudflare R2 (images)
-- **Auth**: Clerk (admin login)
+- **Auth**: Clerk (admin login) (Clerk's normal code won't run there — you must add : to check the JWT token yourself)
 - **Communication**: Telegram Bot API (orders + price requests)
 
 ## WHY CLOUDFLARE
@@ -31,8 +31,8 @@ received → accepted → calling_customer → in_production → ready_for_deliv
 ---
 
 ## DESIGN REQUIREMENTS
-- Ultra-clean, smart, easy-to-use interface
-- Luxury aesthetic with Ethiopian colors (green, yellow, red) or gold style
+- cUltra-clean, smart, easy-to-use interface
+- Luxury aesthetic with gold style and add Ethiopian experse colo 
 - Professional layout for showcasing to clients
 
 ## PAGES & FEATURES
@@ -43,9 +43,12 @@ received → accepted → calling_customer → in_production → ready_for_deliv
 - Scroll through multiple images per item
 
 ### Admin Page
-- Dashboard to upload designs, images, set price ranges
-- View all orders with customer measurements
-- Update order status
+- See stats — total orders, messages, designs, visitors
+- Manage orders — view, update status, delete
+
+- Manage gallery — add, edit, delete dress designs
+- Read customer messages — mark as read/replied
+- Edit shop info — phone, address, hours, images
 
 ### Pricing Display
 - Next to each design image: shows price range (or "Unknown" if not set by admin)
@@ -92,6 +95,42 @@ received → accepted → calling_customer → in_production → ready_for_deliv
 - `process.env` or Node APIs in middleware
 - Local image imports (use R2 URLs)
 - Website chat widget (use Telegram instead)
+
+---
+
+# Habesha Dress E-Commerce: System & Order Flow
+
+### 1. The Pricing System ("Current Price" Button)
+
+Users click this button to find the exact price of a dress.
+It gives the user three options to contact the shop.
+
+* **Automated Bot Request:** Sends a hidden data request to the Telegram bot. The shop owner replies to the customer later.
+* **Direct Chat:** Opens a live Telegram chat between the customer and the shop owner.
+* **Direct Call:** Shows the business phone number so the customer can make a normal voice call.
+
+*Takeaway: Customers ask for prices using automated bot alerts, direct Telegram chats, or phone calls.*
+
+### 2. The Order System ("Buy" Button)
+
+Users click this button to start a custom dress order.
+They must choose one of three ways to provide their body sizes.
+
+* **Insert Measurements (Digital):** A form collects waist, shoulder, arm, and height sizes. It also collects a phone number. This data is sent directly to the Telegram bot.
+* **In-Person Visit (Physical):** The website displays a Google Map and a phone number. The customer travels to the shop to get measured by a tailor.
+* **Send Clothes (Mail):** The website displays the shop's physical address. The customer mails an old dress to the shop for the tailor to copy.
+
+*Takeaway: The checkout process gives three easy ways to collect accurate body measurements.*
+
+### 3. The Telegram Bot Role (Admin Side)
+
+The website does not use a complex database for orders.
+The Telegram bot acts as a digital bridge.
+It instantly delivers all price requests and body measurements to the admin's phone.
+The admin reads the Telegram message, calls the customer, and starts the tailoring job.
+
+*Takeaway: Your Telegram app acts as a real-time admin dashboard for all customer orders.*
+
 
 ---
 

@@ -30,7 +30,8 @@ import {
   Save,
   Check,
   AlertCircle,
-  Upload
+  Upload,
+  Pencil
 } from "lucide-react";
 
 interface DesignItem {
@@ -96,7 +97,22 @@ interface ShopSettings {
   address: string;
   openingHours: string;
   announcement: string;
+  heroImage?: string;
+  storyImage?: string;
+  catImageWedding?: string;
+  catImageFemale?: string;
+  catImageMale?: string;
+  catImageFamily?: string;
 }
+
+const HOME_IMAGE_FIELDS = [
+  { key: "heroImage", label: "Hero Image", hint: "Main large image on the homepage top section" },
+  { key: "catImageWedding", label: "Category: Bridal & Couples", hint: "Shown on the Bridal collection card" },
+  { key: "catImageFemale", label: "Category: Women's Kamiss", hint: "Shown on the Women's collection card" },
+  { key: "catImageMale", label: "Category: Men's Jano & Suits", hint: "Shown on the Men's collection card" },
+  { key: "catImageFamily", label: "Category: Family & Holiday Sets", hint: "Shown on the Family collection card" },
+  { key: "storyImage", label: "Story Section Image", hint: "Image inside the bottom Our Story panel" },
+] as const;
 
 export default function AdminDashboardPage() {
   const [activeNav, setActiveNav] = useState<"overview" | "orders" | "gallery" | "messages" | "settings">("overview");
@@ -114,8 +130,15 @@ export default function AdminDashboardPage() {
     email: "contact@habeshakamis.et",
     address: "Bole Medhanialem Mall, 3rd Floor, Suite 304, Addis Ababa, Ethiopia",
     openingHours: "Monday – Saturday: 9:00 AM – 7:00 PM (Sunday by Appointment)",
-    announcement: "Now accepting custom wedding bookings for the upcoming holiday season."
+    announcement: "Now accepting custom wedding bookings for the upcoming holiday season.",
+    heroImage: "/hero_kemis.jpg",
+    storyImage: "/hero_kemis.jpg",
+    catImageWedding: "/hero_kemis.jpg",
+    catImageFemale: "/hero_kemis.jpg",
+    catImageMale: "/hero_kemis.jpg",
+    catImageFamily: "/hero_kemis.jpg"
   });
+  const [homeImageFiles, setHomeImageFiles] = useState<Record<string, File | null>>({});
   const [activity, setActivity] = useState<any[]>([]);
   const [stats, setStats] = useState<any>({
     totalOrders: 0,
@@ -135,6 +158,7 @@ export default function AdminDashboardPage() {
   const [selectedOrder, setSelectedOrder] = useState<OrderItem | null>(null);
 
   const [isAddDesignOpen, setIsAddDesignOpen] = useState(false);
+  const [editingDesignId, setEditingDesignId] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [designForm, setDesignForm] = useState({
     name: "",
@@ -246,17 +270,44 @@ export default function AdminDashboardPage() {
     }
   };
 
+  const handleHomeImageFileChange = (key: string, e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    setHomeImageFiles({ ...homeImageFiles, [key]: file });
+  };
+
   const handleSaveSettings = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await fetch("/api/admin/settings", {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(settings)
-      });
+      const hasNewImages = Object.values(homeImageFiles).some(Boolean);
+      let res: Response;
+
+      if (hasNewImages) {
+        // Send multipart so new image files can be uploaded together with the settings
+        const formData = new FormData();
+        for (const [key, value] of Object.entries(settings)) {
+          formData.append(key, String(value ?? ""));
+        }
+        for (const [key, file] of Object.entries(homeImageFiles)) {
+          if (file) formData.append(key, file);
+        }
+        res = await fetch("/api/admin/settings", { method: "PATCH", body: formData });
+      } else {
+        res = await fetch("/api/admin/settings", {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(settings)
+        });
+      }
+
       if (res.ok) {
         setSavedSettingsSuccess(true);
         setTimeout(() => setSavedSettingsSuccess(false), 3000);
+        if (hasNewImages) {
+          setHomeImageFiles({});
+          // Reload so image previews reflect the freshly uploaded paths
+          const updated = await res.json();
+          if (updated?.settings) setSettings(updated.settings);
+        }
       }
     } catch (err) {
       console.error(err);
@@ -269,6 +320,46 @@ export default function AdminDashboardPage() {
       setImageFile(file);
       setImagePreview(URL.createObjectURL(file));
     }
+  };
+
+  const resetDesignForm = () => {
+    setDesignForm({
+      name: "",
+      amharicName: "",
+      category: "wedding",
+      priceRange: "20,000 - 35,000 ETB",
+      description: "",
+      material: "100% Fine Ethiopian Menen Cotton",
+      weaveTime: "80 Hours",
+      production: "2-3 Weeks",
+      imageUrlFallback: ""
+    });
+    setImageFile(null);
+    setImagePreview(null);
+  };
+
+  const handleOpenEditDesign = (design: DesignItem) => {
+    setEditingDesignId(design.id);
+    setDesignForm({
+      name: design.name,
+      amharicName: design.amharicName || "",
+      category: design.category,
+      priceRange: design.priceRange || "",
+      description: design.description || "",
+      material: design.specs?.material || "",
+      weaveTime: design.specs?.weaveTime || "",
+      production: design.specs?.production || "",
+      imageUrlFallback: ""
+    });
+    setImageFile(null);
+    setImagePreview(design.images?.[0] || null);
+    setIsAddDesignOpen(true);
+  };
+
+  const handleCloseDesignModal = () => {
+    setIsAddDesignOpen(false);
+    setEditingDesignId(null);
+    resetDesignForm();
   };
 
   const handleAddDesignSubmit = async (e: React.FormEvent) => {
@@ -287,7 +378,30 @@ export default function AdminDashboardPage() {
       formData.append("material", designForm.material);
       formData.append("weaveTime", designForm.weaveTime);
       formData.append("production", designForm.production);
-      
+
+      if (editingDesignId) {
+        // EDIT MODE: PATCH the existing design
+        formData.append("id", editingDesignId);
+
+        if (imageFile && imagePreview !== designs.find((d) => d.id === editingDesignId)?.images?.[0]) {
+          formData.append("imageFile", imageFile);
+        }
+        if (designForm.imageUrlFallback.trim()) {
+          formData.append("imageUrl", designForm.imageUrlFallback.trim());
+        }
+
+        const res = await fetch("/api/admin/designs", { method: "PATCH", body: formData });
+        const data = await res.json();
+        setIsUploading(false);
+
+        if (data.success) {
+          setDesigns(designs.map((d) => (d.id === editingDesignId ? data.design : d)));
+          handleCloseDesignModal();
+        }
+        return;
+      }
+
+      // CREATE MODE
       if (imageFile) {
         formData.append("imageFile", imageFile);
       }
@@ -305,20 +419,7 @@ export default function AdminDashboardPage() {
 
       if (data.success) {
         setDesigns([data.design, ...designs]);
-        setIsAddDesignOpen(false);
-        setDesignForm({
-          name: "",
-          amharicName: "",
-          category: "wedding",
-          priceRange: "20,000 - 35,000 ETB",
-          description: "",
-          material: "100% Fine Ethiopian Menen Cotton",
-          weaveTime: "80 Hours",
-          production: "2-3 Weeks",
-          imageUrlFallback: ""
-        });
-        setImageFile(null);
-        setImagePreview(null);
+        handleCloseDesignModal();
       }
     } catch (err) {
       console.error(err);
@@ -516,7 +617,7 @@ export default function AdminDashboardPage() {
             </button>
             {activeNav === "gallery" && (
               <button
-                onClick={() => setIsAddDesignOpen(true)}
+                onClick={() => { setEditingDesignId(null); resetDesignForm(); setIsAddDesignOpen(true); }}
                 className="px-3.5 py-1.5 rounded-sm bg-gold text-black text-xs uppercase tracking-wider font-semibold flex items-center gap-1.5 hover:bg-gold-light transition-colors"
               >
                 <Plus className="h-3.5 w-3.5" />
@@ -758,7 +859,7 @@ export default function AdminDashboardPage() {
                   <p className="text-xs sm:text-sm text-gray-300">Total {designs.length} designs active in online gallery</p>
                 </div>
                 <button
-                  onClick={() => setIsAddDesignOpen(true)}
+                  onClick={() => { setEditingDesignId(null); resetDesignForm(); setIsAddDesignOpen(true); }}
                   className="px-5 py-2.5 bg-gold hover:bg-gold-light text-black text-xs uppercase tracking-wider font-bold rounded-sm flex items-center gap-2 transition-colors shadow-lg"
                 >
                   <Upload className="h-4 w-4" />
@@ -801,13 +902,22 @@ export default function AdminDashboardPage() {
 
                       <div className="pt-3 border-t border-white/10 flex items-center justify-between">
                         <span className="text-xs text-gray-400 font-mono">{design.specs?.production || "2 Weeks"}</span>
-                        <button
-                          onClick={() => handleDeleteDesign(design.id)}
-                          className="text-xs text-red-400 hover:text-red-300 font-medium flex items-center gap-1 transition-colors"
-                        >
-                          <Trash2 className="h-3.5 w-3.5" />
-                          <span>Delete</span>
-                        </button>
+                        <div className="flex items-center gap-4">
+                          <button
+                            onClick={() => handleOpenEditDesign(design)}
+                            className="text-xs text-gold hover:text-gold-light font-medium flex items-center gap-1 transition-colors"
+                          >
+                            <Pencil className="h-3.5 w-3.5" />
+                            <span>Edit</span>
+                          </button>
+                          <button
+                            onClick={() => handleDeleteDesign(design.id)}
+                            className="text-xs text-red-400 hover:text-red-300 font-medium flex items-center gap-1 transition-colors"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
+                            <span>Delete</span>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1014,6 +1124,49 @@ export default function AdminDashboardPage() {
                   />
                 </div>
 
+                {/* HOME PAGE IMAGES — admin controls what shows on the public homepage */}
+                <div className="pt-6 border-t border-white/10 space-y-4">
+                  <div>
+                    <h4 className="font-serif text-lg text-white">Home Page Images</h4>
+                    <p className="text-xs text-gray-300 mt-0.5">
+                      Choose exactly which images appear on the public homepage. Upload a new photo and press &ldquo;Save Shop Settings&rdquo;.
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                    {HOME_IMAGE_FIELDS.map((field) => (
+                      <div key={field.key} className="p-4 rounded-sm bg-[#161922] border border-white/15 space-y-3">
+                        <div className="relative aspect-[16/10] w-full overflow-hidden rounded-sm bg-black/60">
+                          <Image
+                            src={settings[field.key as keyof ShopSettings] || "/hero_kemis.jpg"}
+                            alt={field.label}
+                            fill
+                            sizes="300px"
+                            className="object-cover"
+                          />
+                          {homeImageFiles[field.key] && (
+                            <span className="absolute top-2 right-2 px-2 py-0.5 rounded-sm bg-gold text-black text-[10px] font-bold uppercase">
+                              New
+                            </span>
+                          )}
+                        </div>
+
+                        <div>
+                          <label className="block text-xs uppercase tracking-wider text-gray-200 font-semibold">{field.label}</label>
+                          <p className="text-[10px] text-gray-400 font-light">{field.hint}</p>
+                        </div>
+
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => handleHomeImageFileChange(field.key, e)}
+                          className="w-full text-[11px] text-gray-200 file:mr-3 file:py-1.5 file:px-3 file:rounded-sm file:border-0 file:text-[11px] file:font-bold file:bg-gold file:text-black hover:file:bg-gold-light cursor-pointer"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
                 <div className="flex justify-end pt-4 border-t border-white/10">
                   <button
                     type="submit"
@@ -1045,9 +1198,11 @@ export default function AdminDashboardPage() {
             <div className="flex justify-between items-center border-b border-white/10 pb-4">
               <div>
                 <span className="text-xs uppercase tracking-widest text-gold font-semibold">Gallery Catalog Management</span>
-                <h3 className="font-serif text-2xl text-white">Upload New Habesha Kemis Design</h3>
+                <h3 className="font-serif text-2xl text-white">
+                  {editingDesignId ? "Edit Gallery Design" : "Upload New Habesha Kemis Design"}
+                </h3>
               </div>
-              <button onClick={() => setIsAddDesignOpen(false)} className="text-gray-300 hover:text-white">
+              <button onClick={handleCloseDesignModal} className="text-gray-300 hover:text-white">
                 <X className="h-5 w-5" />
               </button>
             </div>
@@ -1184,7 +1339,7 @@ export default function AdminDashboardPage() {
               <div className="flex justify-end gap-3 pt-4 border-t border-white/10">
                 <button
                   type="button"
-                  onClick={() => setIsAddDesignOpen(false)}
+                  onClick={handleCloseDesignModal}
                   className="px-4 py-2.5 rounded-sm border border-white/25 text-xs text-gray-200 hover:text-white"
                 >
                   Cancel
@@ -1194,7 +1349,7 @@ export default function AdminDashboardPage() {
                   disabled={isUploading}
                   className="px-6 py-2.5 rounded-sm bg-gold text-black font-bold text-xs uppercase tracking-wider hover:bg-gold-light flex items-center gap-2 shadow-lg"
                 >
-                  {isUploading ? "Uploading..." : "Save Design to JSON"}
+                  {isUploading ? "Saving..." : editingDesignId ? "Save Changes" : "Save Design to JSON"}
                 </button>
               </div>
 

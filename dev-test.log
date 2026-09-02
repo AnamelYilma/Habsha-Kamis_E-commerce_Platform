@@ -1,0 +1,13 @@
+$ next dev -p 3001
+▲ Next.js 16.3.0 (Turbopack)
+- Local:         http://localhost:3001
+- Network:       http://192.168.1.6:3001
+✓ Ready in 12.4s
+✓ Running next.config.js took 1006ms
+
+ GET /api/designs 200 in 2.6s (next.js: 2.4s, application-code: 133ms)
+ GET /gallery 200 in 910ms (next.js: 341ms, application-code: 569ms)
+ GET / 200 in 226ms (next.js: 113ms, application-code: 113ms)
+ GET / 200 in 3.0s (next.js: 1225ms, application-code: 1820ms)
+[?25h
+[ELIFECYCLE] Command failed with exit code 4294967295.

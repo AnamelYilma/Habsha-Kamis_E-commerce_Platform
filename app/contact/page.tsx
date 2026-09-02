@@ -91,26 +91,44 @@ export default function ContactPage() {
       <div className="absolute top-[40%] -right-32 -z-10 h-[500px] w-[500px] rounded-full bg-ethioGreen/5 blur-[130px] pointer-events-none" />
 
       {/* ===================================================================== */}
-      {/* SECTION 1: HERO HEADER */}
+      {/* SECTION 1: HERO HEADER — compact, fits the first viewport */}
       {/* ===================================================================== */}
-      <section className="relative mx-auto max-w-6xl px-6 pt-16 pb-12 lg:px-8 text-center">
-        <div className="inline-flex items-center gap-2 mb-4">
+      <section className="relative mx-auto max-w-6xl px-6 pt-10 pb-6 lg:px-8 text-center min-h-[calc(100dvh-5rem)] flex flex-col justify-center">
+        <div className="inline-flex items-center gap-2 mb-3 mx-auto">
           <span className="h-[1px] w-8 bg-gold/60" />
           <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold">
-            Get In Touch • ያግኙን
+            Get In Touch
           </span>
           <span className="h-[1px] w-8 bg-gold/60" />
         </div>
 
-        <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-normal text-white max-w-3xl mx-auto leading-tight">
+        <h1 className="font-serif font-normal text-white max-w-3xl mx-auto leading-[1.1] text-[clamp(2rem,5vw,3.5rem)]">
           Visit Our Atelier or <br />
           <span className="italic font-light text-gold">Inquire with Our</span> Tailors.
         </h1>
 
-        <p className="mt-6 text-sm sm:text-base text-gray-200 max-w-2xl mx-auto leading-relaxed font-light">
+        <p className="mt-4 text-sm sm:text-base text-gray-200 max-w-2xl mx-auto leading-relaxed font-light">
           Whether you need a bespoke wedding gown, a matching family holiday set, or an in-person measurement fitting, 
           our tailoring team is here to assist you.
         </p>
+
+        {/* Quick contact shortcuts so the first screen is actionable */}
+        <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
+          <a
+            href="https://t.me/HabeshaKamisTailorShop"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-sheen px-7 py-3.5 rounded-sm bg-gradient-to-r from-gold via-yellow-400 to-gold-dark text-black font-semibold text-xs uppercase tracking-[0.2em] hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] transition duration-300"
+          >
+            💬 Chat on Telegram
+          </a>
+          <a
+            href="tel:+251911234567"
+            className="border border-white/20 px-7 py-3.5 rounded-sm hover:border-gold hover:text-gold text-xs uppercase tracking-[0.2em] transition duration-300"
+          >
+            📍 Call / Directions
+          </a>
+        </div>
       </section>
 
       {/* ===================================================================== */}
@@ -127,8 +145,8 @@ export default function ContactPage() {
             className="group p-6 rounded-sm bg-[#0f1117] border border-white/15 hover:border-gold/60 transition-all duration-300 flex flex-col justify-between hover:bg-[#151822] shadow-lg"
           >
             <div>
-              <div className="h-10 w-10 rounded-sm bg-[#24A1DE]/15 border border-[#24A1DE]/40 flex items-center justify-center mb-4">
-                <Send className="h-5 w-5 text-[#24A1DE]" />
+              <div className="h-10 w-10 rounded-sm bg-gold/15 border border-gold/40 flex items-center justify-center mb-4">
+                <Send className="h-5 w-5 text-gold" />
               </div>
               <span className="text-[10px] uppercase tracking-widest text-gold font-semibold">Instant Response</span>
               <h3 className="font-serif text-lg text-white group-hover:text-gold transition-colors mt-1 font-normal">Telegram Inquiries</h3>
@@ -374,7 +392,7 @@ export default function ContactPage() {
       {/* ===================================================================== */}
       <section className="mx-auto max-w-4xl px-6 py-16 lg:px-8 border-t border-white/10">
         <div className="text-center mb-12">
-          <span className="text-xs uppercase tracking-[0.25em] text-gold font-semibold">Common Inquiries • ጥያቄዎች</span>
+          <span className="text-xs uppercase tracking-[0.25em] text-gold font-semibold">Common Inquiries</span>
           <h2 className="font-serif text-3xl text-white mt-1">Frequently Asked Questions</h2>
         </div>
 

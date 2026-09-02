@@ -21,7 +21,6 @@ import {
 interface GarmentOption {
   id: string;
   name: string;
-  amharic: string;
   basePrice: string;
   leadTime: string;
   description: string;
@@ -30,14 +29,12 @@ interface GarmentOption {
 interface FabricOption {
   id: string;
   name: string;
-  amharic: string;
   description: string;
 }
 
 interface EmbroideryOption {
   id: string;
   name: string;
-  amharic: string;
   palette: string[];
   description: string;
 }
@@ -46,7 +43,6 @@ const garmentOptions: GarmentOption[] = [
   {
     id: "bridal",
     name: "Royal Bridal Wedding Gown",
-    amharic: "የሰርግ ሙሽራ ቀሚስ",
     basePrice: "35,000 - 55,000 ETB",
     leadTime: "3-4 Weeks",
     description: "Multi-layered Menen cotton gown with heavy gold Zari Tilf and double bridal veil."
@@ -54,7 +50,6 @@ const garmentOptions: GarmentOption[] = [
   {
     id: "couple",
     name: "Bride & Groom Matching Set",
-    amharic: "የጥንዶች አልባሳት",
     basePrice: "26,000 - 42,000 ETB",
     leadTime: "2-3 Weeks",
     description: "Coordinated gown and groom's Kaftan vest featuring matching neckline embroidery."
@@ -62,7 +57,6 @@ const garmentOptions: GarmentOption[] = [
   {
     id: "family",
     name: "Family Holiday Celebration Set",
-    amharic: "የቤተሰብ በዓላት ስብስብ",
     basePrice: "28,000 - 45,000 ETB (Set of 3)",
     leadTime: "2-3 Weeks",
     description: "Harmonized traditional attire for parents and children for holidays and church ceremonies."
@@ -70,7 +64,6 @@ const garmentOptions: GarmentOption[] = [
   {
     id: "female_kemis",
     name: "Classic Evening Habesha Kemis",
-    amharic: "የምሽት ባህላዊ ቀሚስ",
     basePrice: "14,000 - 22,000 ETB",
     leadTime: "10-14 Days",
     description: "Elegant tailored silhouette with traditional hand-embroidered neckline, cuffs, and Netela trim."
@@ -78,7 +71,6 @@ const garmentOptions: GarmentOption[] = [
   {
     id: "male_kaftan",
     name: "Men's Kaftan & Warm Chencha Gabi",
-    amharic: "የወንድ ካፍታንና ጋቢ",
     basePrice: "12,000 - 18,000 ETB",
     leadTime: "10-12 Days",
     description: "Structured collarless shirt with embroidered chest plaque paired with an ultra-soft Gabi blanket."
@@ -86,7 +78,6 @@ const garmentOptions: GarmentOption[] = [
   {
     id: "modest",
     name: "Modest High-Neck Flowing Dress",
-    amharic: "የተከበረ የባህል ቀሚስ",
     basePrice: "16,000 - 25,000 ETB",
     leadTime: "12-14 Days",
     description: "Full-length flowing gown with high neckline, long sleeves, and matching head covering."
@@ -97,25 +88,21 @@ const fabricOptions: FabricOption[] = [
   {
     id: "menen_fine",
     name: "100% Superfine Menen Cotton",
-    amharic: "ስስ መነን ጥጥ",
     description: "Lightweight, breathable, and soft organic cotton. Perfect for gowns and double-layered dresses."
   },
   {
     id: "chencha_heavy",
     name: "Heavyweight Chencha Loom Weave",
-    amharic: "የጨንቻ ወፍራም ሸማ",
     description: "Thick, ultra-warm, combed organic cotton ideal for Gabis, vests, and structured outerwear."
   },
   {
     id: "silk_cotton",
     name: "Silk-Cotton Hybrid with Sheer Netela",
-    amharic: "የሐርና የጥጥ ቅልቅል",
     description: "Lustrous woven cotton infused with silk thread for enhanced evening shimmer and drape."
   },
   {
     id: "own_fabric",
     name: "I Will Ship / Provide My Own Fabric",
-    amharic: "የራስዎን ጨርቅ በመላክ",
     description: "Deliver or mail your personal raw cotton or specialty regional fabric to our studio."
   }
 ];
@@ -124,28 +111,24 @@ const embroideryOptions: EmbroideryOption[] = [
   {
     id: "gold_zari",
     name: "Royal Gold Zari Tilf",
-    amharic: "ወርቃማ ዛሪ ጥልፍ",
     palette: ["#d4af37", "#f3e5ab", "#aa8010"],
     description: "High-grade metallic gold thread woven into dense geometric royal motifs."
   },
   {
     id: "tricolor",
     name: "Traditional Unity Tricolor",
-    amharic: "አረንጓዴ፣ ቢጫ፣ ቀይ",
     palette: ["#078732", "#fcd116", "#e51f1f"],
     description: "Balanced green, yellow, and red borders celebrating national heritage."
   },
   {
     id: "emerald_floral",
     name: "Emerald Green & Gold Flora",
-    amharic: "ሀረግ አረንጓዴ",
     palette: ["#10b981", "#d4af37", "#064e3b"],
     description: "Rich botanical and vine patterns woven gracefully along edges."
   },
   {
     id: "minimal_silver",
     name: "Minimalist Silver Ribbon Border",
-    amharic: "ቀለል ያለ የብር ሪባን",
     palette: ["#e2e8f0", "#94a3b8", "#d4af37"],
     description: "Subtle, clean silver-thread geometric crosslines for understated elegance."
   }
@@ -199,7 +182,7 @@ export default function CustomizePage() {
           customerName: customer.name || "Customer",
           phone: customer.phone,
           occasion: "Bespoke Custom Order",
-          garmentType: `${activeGarmentObj.name} (${activeGarmentObj.amharic})`,
+          garmentType: activeGarmentObj.name,
           fabric: `${activeFabricObj.name}`,
           embroidery: `${activeEmbroideryObj.name}`,
           measurements: measurements,
@@ -242,24 +225,24 @@ export default function CustomizePage() {
       <div className="absolute top-[50%] -left-32 -z-10 h-[500px] w-[500px] rounded-full bg-ethioGreen/5 blur-[130px] pointer-events-none" />
 
       {/* ===================================================================== */}
-      {/* HERO SECTION */}
+      {/* HERO SECTION — compact, fits the first viewport */}
       {/* ===================================================================== */}
-      <section className="relative mx-auto max-w-6xl px-6 pt-16 pb-12 lg:px-8 text-center">
-        <div className="inline-flex items-center gap-2 mb-4">
+      <section className="relative mx-auto max-w-6xl px-6 pt-10 pb-6 lg:px-8 text-center min-h-[calc(100dvh-5rem)] flex flex-col justify-center">
+        <div className="inline-flex items-center gap-2 mb-3 mx-auto">
           <Scissors className="h-4 w-4 text-gold" />
           <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold">
-            Bespoke Studio • የልብስ ማበጃ ስቱዲዮ
+            Bespoke Studio
           </span>
           <Scissors className="h-4 w-4 text-gold" />
         </div>
 
-        <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-normal text-white max-w-4xl mx-auto leading-tight">
+        <h1 className="font-serif font-normal text-white max-w-4xl mx-auto leading-[1.1] text-[clamp(2rem,5vw,3.5rem)]">
           Design Your Custom <br />
           <span className="italic font-light text-gold">Hand-Tailored</span> Silhouette.
         </h1>
 
-        <p className="mt-6 text-sm sm:text-base text-gray-200 max-w-2xl mx-auto leading-relaxed font-light">
-          Choose your garment type, traditional fabric, and embroidery pattern. Input your physical measurements 
+        <p className="mt-4 text-sm sm:text-base text-gray-200 max-w-2xl mx-auto leading-relaxed font-light">
+          Choose your garment type, traditional fabric, and embroidery pattern. Input your physical measurements
           to have our master tailors craft a piece made exclusively for you.
         </p>
       </section>
@@ -301,7 +284,7 @@ export default function CustomizePage() {
                 href={`https://t.me/HabeshaKamisTailorShop?text=Hello,%20I%20just%20submitted%20bespoke%20order%20${orderResult.trackingCode}%20for%20${encodeURIComponent(activeGarmentObj.name)}.%20Please%20confirm%20deposit%20and%20timeline.`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-3 rounded-sm bg-[#24A1DE] text-white font-semibold text-xs uppercase tracking-wider flex items-center gap-2 hover:bg-[#1f8fc7] transition-colors"
+                className="px-6 py-3 rounded-sm bg-gradient-to-r from-gold via-yellow-400 to-gold-dark text-black font-semibold text-xs uppercase tracking-wider flex items-center gap-2 hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-colors"
               >
                 <Send className="h-4 w-4" />
                 <span>Confirm on Telegram</span>
@@ -356,7 +339,6 @@ export default function CustomizePage() {
                           </h4>
                           {isSelected && <CheckCircle className="h-4 w-4 text-gold shrink-0 mt-0.5 ml-1" />}
                         </div>
-                        <p className="text-xs text-gold/90 font-light mt-0.5">{option.amharic}</p>
                         <p className="text-xs text-gray-300 font-light leading-relaxed mt-2.5">
                           {option.description}
                         </p>
@@ -401,7 +383,6 @@ export default function CustomizePage() {
                           </h4>
                           {isSelected && <CheckCircle className="h-4 w-4 text-gold shrink-0 mt-0.5 ml-1" />}
                         </div>
-                        <p className="text-xs text-gold/90 font-light mt-0.5">{fabric.amharic}</p>
                         <p className="text-xs text-gray-300 font-light leading-relaxed mt-2.5">
                           {fabric.description}
                         </p>
@@ -446,7 +427,6 @@ export default function CustomizePage() {
                             ))}
                           </div>
                         </div>
-                        <p className="text-xs text-gold/90 font-light">{emb.amharic}</p>
                         <p className="text-xs text-gray-300 font-light leading-relaxed mt-2">
                           {emb.description}
                         </p>
@@ -655,7 +635,6 @@ export default function CustomizePage() {
                 <div>
                   <span className="text-gray-300 uppercase tracking-widest text-[10px] block font-medium">Selected Garment</span>
                   <span className="text-white font-semibold text-sm">{activeGarmentObj.name}</span>
-                  <span className="text-xs text-gold block mt-0.5">{activeGarmentObj.amharic}</span>
                 </div>
 
                 <div>

@@ -8,5 +8,11 @@
   "email": "contact@habeshakamis.et",
   "address": "Bole Medhanialem Mall, 3rd Floor, Suite 304, Addis Ababa, Ethiopia",
   "openingHours": "Monday – Saturday: 9:00 AM – 7:00 PM (Sunday by Appointment)",
-  "announcement": "Now accepting custom wedding bookings for the upcoming holiday season."
+  "announcement": "Now accepting custom wedding bookings for the upcoming holiday season.",
+  "heroImage": "/hero_kemis.jpg",
+  "storyImage": "/hero_kemis.jpg",
+  "catImageWedding": "/hero_kemis.jpg",
+  "catImageFemale": "/hero_kemis.jpg",
+  "catImageMale": "/hero_kemis.jpg",
+  "catImageFamily": "/hero_kemis.jpg"
 }
