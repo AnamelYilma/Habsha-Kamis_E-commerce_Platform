@@ -1,9 +1,22 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Homepage() {
+  const [heroImg, setHeroImg] = useState<string>("/hero_kemis.jpg");
+  const [storyImg, setStoryImg] = useState<string>("/hero_kemis.jpg");
+
+  useEffect(() => {
+    fetch("/api/admin/settings")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.heroImageUrl) setHeroImg(data.heroImageUrl);
+        if (data.storyImageUrl) setStoryImg(data.storyImageUrl);
+      })
+      .catch(() => {});
+  }, []);
   return (
     <div className="relative min-h-screen bg-[#0a0b0d] text-white selection:bg-gold selection:text-black pb-16">
       
@@ -49,13 +62,13 @@ export default function Homepage() {
         </div>
 
         <div className="flex-1 w-full max-w-md relative">
-          <div className="relative aspect-[3/4] w-full overflow-hidden rounded-sm border border-white/10 bg-zinc-900 shadow-2xl">
+          <div className="relative aspect-[3/4] sm:aspect-[3/4] w-full overflow-hidden rounded-sm border border-white/10 bg-zinc-900 shadow-2xl">
             <Image
-              src="/hero_kemis.jpg"
+              src={heroImg}
               alt="Premium Habesha Kemis"
               fill
               priority
-              className="object-cover"
+              className="object-cover object-top"
               sizes="(max-width: 1024px) 100vw, 500px"
             />
           </div>
@@ -188,10 +201,10 @@ export default function Homepage() {
                {/* Optional story image placeholder */}
                <div className="absolute inset-0 bg-gradient-to-tr from-black/60 to-transparent z-10"/>
                <Image
-                 src="/hero_kemis.jpg"
+                 src={storyImg}
                  alt="Our weaving process"
                  fill
-                 className="object-cover filter brightness-75 grayscale"
+                 className="object-cover object-top filter brightness-75 grayscale"
                />
             </div>
           </div>
