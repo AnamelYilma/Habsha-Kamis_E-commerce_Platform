@@ -46,3 +46,28 @@ a {
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgba(212, 175, 55, 0.6);
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.gold-glow-card {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gold-glow-card:hover {
+  border-color: rgba(212, 175, 55, 0.5) !important;
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.25);
+  transform: translateY(-2px);
+}
